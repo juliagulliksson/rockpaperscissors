@@ -6,18 +6,14 @@ form.addEventListener('submit', function(event){
     event.preventDefault(); 
 });
 
-submitButton.addEventListener('click', confirmWhoWins);
-
-function confirmWhoWins(){
-    registerNumberOfWins();
-}
+submitButton.addEventListener('click', registerNumberOfWins);
 
 function registerNumberOfWins(){
     const inputValue = inputField.value;
     let isEven = checkIfGameIsEven(inputValue);
-   
+
     if (isEven) {
-        determineWhoWinsLoop(inputValue);
+       determineWhoWins(inputValue);
     } else {
        displayError();
     }
@@ -35,10 +31,10 @@ function checkIfGameIsEven(inputValue){
     }
 }
 
-function determineWhoWinsLoop(inputValue){
+function determineWhoWins(inputValue){
     let separatedGames = inputValue.match(/.{1,2}/g);
-    let numberOfTimesBWon = [];
-    let numberOfTimesAWon = [];
+    let numberOfTimesBWon = 0;
+    let numberOfTimesAWon = 0;
 
     for (let i in separatedGames) {
 
@@ -50,39 +46,39 @@ function determineWhoWinsLoop(inputValue){
             break;
             case "RS":
                 console.log("A wins")
-                numberOfTimesAWon.push(1);
+                numberOfTimesAWon++;
             break;
             case "SR":
                 console.log("B wins");
-                numberOfTimesBWon.push(1);
+                numberOfTimesBWon++;
             break;
             case "SP":
                 console.log("A wins");
-                numberOfTimesAWon.push(1);
+                numberOfTimesAWon++;
             break;
             case "PS":
                 console.log("B wins")
-                numberOfTimesBWon.push(1);
+                numberOfTimesBWon++;
             break;
             case "PR":
                 console.log("A wins")
-                numberOfTimesAWon.push(1);
+                numberOfTimesAWon++;
             break;
             case "RP":
                 console.log("B wins");
-                numberOfTimesBWon.push(1);
+                numberOfTimesBWon++;
             break;
         }
     }
     countLength(numberOfTimesAWon, numberOfTimesBWon);
 }
 
-function countLength(arrayA, arrayB){
-    if (arrayA.length > arrayB.length) {
+function countLength(numberOfTimesAWon, numberOfTimesBWon){
+    if (numberOfTimesAWon > numberOfTimesBWon) {
         console.log("A wins the tournament!");
-    } else if(arrayA.length < arrayB.length) {
+    } else if(numberOfTimesAWon.length < numberOfTimesBWon) {
         console.log("B wins tournament!");
-    } else if(arrayA.length == arrayB.length) {
+    } else if(numberOfTimesAWon == numberOfTimesBWon) {
         console.log("The game is a draw");
     }
 }
